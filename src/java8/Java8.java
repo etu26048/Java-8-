@@ -93,7 +93,7 @@ public class Java8 {
         System.out.println(getTheFirst2PeopleAndApplyFilter);
         System.out.println("Sum of ages : "+people.stream().mapToInt(x -> x.getAge()).sum());
         
-        System.out.println("************************");
+        
     }
 
 }
