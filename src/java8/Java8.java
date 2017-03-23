@@ -91,9 +91,12 @@ public class Java8 {
                 .filter(p -> p.getAge() > 22)
                 .collect(toList());
         System.out.println(getTheFirst2PeopleAndApplyFilter);
-        System.out.println("Sum of ages : "+people.stream().mapToInt(x -> x.getAge()).sum());
-        
+        System.out.println("Sum of ages : " + people.stream().mapToInt(x -> x.getAge()).sum());
+
         System.out.println("***************");
+        people.stream().forEach(e ->  {e.setAge(12);});
+        people.stream().forEach(System.out::println);
+
     }
 
 }
