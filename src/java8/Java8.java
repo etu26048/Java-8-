@@ -171,7 +171,7 @@ public class Java8 {
         System.out.println("toArray : " + Arrays.toString(colors.toArray(new String[colors.size()])));
 
         int var = 42;
-        System.out.println(42 > 0 ? 1 : 0);
+        System.out.println(var > 0 ? var : 0);
     }
 
 }
