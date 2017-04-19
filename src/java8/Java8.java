@@ -5,7 +5,9 @@
  */
 package java8;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import static java.util.Comparator.comparing;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -94,9 +96,82 @@ public class Java8 {
         System.out.println("Sum of ages : " + people.stream().mapToInt(x -> x.getAge()).sum());
 
         System.out.println("***************");
-        people.stream().forEach(e ->  {e.setAge(12);});
+        people.stream().forEach(e -> {
+            e.setAge(12);
+        });
         people.stream().forEach(System.out::println);
 
+        System.out.println("***************");
+        System.out.println("Laura : " + people.stream().filter(v -> v.getName().equals("Laura")).findFirst().get().getClass());
+
+        List<Beacon> beacons = new ArrayList();
+        beacons.add(new Beacon(new Long(1), "LGG", "23L", "", "m1", "i1", "Liège airport"));
+        beacons.add(new Beacon(new Long(2), "BXX", "58D", "o2", "", "i2", "Bruxelles airport"));
+        beacons.add(new Beacon(new Long(3), "LGG", "25R", "o3", "m3", "", "Liège airport"));
+
+        beacons.stream()
+                .map(Beacon::getAirport_name)
+                .sorted()
+                .collect(toList())
+                .forEach(System.out::println);
+
+        beacons.stream()
+                .filter(v -> v.getAirport_name().equals("Liège airport"))
+                .map(Beacon::getLandind_track)
+                .sorted()
+                .collect(toList())
+                .forEach(System.out::println);
+
+        /*System.out.println(beacons.stream()
+        .filter(x -> x.getInner_beacon().equals("o1") || x.getMiddle_beacon().equals("o1") || x.getOuter_beacon().equals("o1"))
+        .findFirst()
+        .get().getAirport_name());*/
+        Beacon beacon = beacons.stream()
+                .filter(x -> x.getInner_beacon().equals("a") || x.getMiddle_beacon().equals("m1") || x.getOuter_beacon().equals("a"))
+                .filter(v -> v.getAirport_name().contains("Liège airport"))
+                .filter(k -> k.getLandind_track().contains("23L"))
+                .findFirst()
+                .orElse(null);
+
+        System.out.println(beacon.getAirport_name() + " " + beacon.getLandind_track());
+
+        if (beacon == null) {
+            System.out.println("Beacon est null");
+        }
+
+        System.out.println(beacons.stream()
+                .filter(x -> x.getAirport_name().equals("Liège airport"))
+                .map(Beacon::getIcao_code)
+                .findFirst()
+                .get());
+
+        int i, j, n;
+        i = 0;
+        n = i++;
+        System.out.println("A : i = " + i + " n = " + n);
+
+        Map<String, Double> linkedMap = new LinkedHashMap<>();
+
+        for (int k = 0; k < 24; k++) {
+            linkedMap.put(String.valueOf(k), (double) Math.round(Math.random() * 100));
+        }
+
+        linkedMap.keySet().stream().collect(toList());
+        System.out.println(linkedMap.values().stream().mapToInt(h -> h.intValue()).sum());
+        System.out.println(linkedMap.values().stream().max(Comparator.naturalOrder()).orElse(-1.00).getClass());
+        linkedMap.put("1", 42.00);
+        System.out.println(linkedMap.get("1"));
+        System.out.println("Key set: " + linkedMap.keySet().toString());
+        System.out.println("Dataset  : " + linkedMap.values());
+
+        System.out.println(Integer.parseInt("24"));
+
+        List<String> colors = new ArrayList<String>(Arrays.asList("#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"));
+
+        System.out.println("toArray : " + Arrays.toString(colors.toArray(new String[colors.size()])));
+
+        int var = 42;
+        System.out.println(42 > 0 ? 1 : 0);
     }
 
 }
