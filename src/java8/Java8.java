@@ -161,7 +161,7 @@ public class Java8 {
         System.out.println(linkedMap.values().stream().max(Comparator.naturalOrder()).orElse(-1.00).getClass());
         linkedMap.put("1", 42.00);
         System.out.println(linkedMap.get("1"));
-        System.out.println("Key set: " + linkedMap.keySet().toString());
+        System.out.println("Key set: " + linkedMap.entrySet().stream().map(x -> x.getKey()).collect(toList()));
         System.out.println("Dataset  : " + linkedMap.values());
 
         System.out.println(Integer.parseInt("24"));
@@ -172,6 +172,32 @@ public class Java8 {
 
         int var = 42;
         System.out.println(var > 0 ? var : 0);
+
+        Map<String, HashMap<String, Double>> map = new HashMap<>();
+        HashMap<String, Double> temp = new HashMap<>();
+        for (int k = 0; k < 7; k++) {
+            temp.put("i" + k, ((double) (Math.round(Math.random() * 100))));
+        }
+
+        map.put("Dataset 1 ", temp);
+
+        System.out.println("--------------------------------------------------------------------------------------------------------------------");
+        System.out.println(map.entrySet());
+        System.out.println(map.keySet().toString());
+        /* not the right way
+        List<String> xx = (map.values().stream().map(m -> m.toString()).collect(toList()));
+         */
+        
+        List<String> xx = map.values().iterator().next().keySet().stream().collect(toList());
+        for (String value : xx) {
+            System.out.println(value);
+        }
+        System.out.println(xx);
+        System.out.println(map.values().iterator().next().keySet());
+        System.out.println(map.values().iterator().next().values());
+        System.out.println(map.values().stream().map(x -> x.keySet()).collect(toList()));
+        System.out.println(map.values().stream().map(y -> y.values()).collect(toList()).getClass());
+        System.out.println(map.values().iterator().next().values().stream().filter(g -> g == 86.0).count());
     }
 
 }
