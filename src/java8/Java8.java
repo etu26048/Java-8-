@@ -5,6 +5,10 @@
  */
 package java8;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -64,6 +68,7 @@ public class Java8 {
                 .sorted(comparing(Person::getAge))
                 .map(Person::getName)
                 .collect(Collectors.toList());
+
         System.out.println("--> Name sorted by age and > 21");
         System.out.println(nameSortedByAge);
 
@@ -187,17 +192,30 @@ public class Java8 {
         /* not the right way
         List<String> xx = (map.values().stream().map(m -> m.toString()).collect(toList()));
          */
-        
+
         List<String> xx = map.values().iterator().next().keySet().stream().collect(toList());
         for (String value : xx) {
             System.out.println(value);
         }
+
         System.out.println(xx);
         System.out.println(map.values().iterator().next().keySet());
         System.out.println(map.values().iterator().next().values());
         System.out.println(map.values().stream().map(x -> x.keySet()).collect(toList()));
         System.out.println(map.values().stream().map(y -> y.values()).collect(toList()).getClass());
         System.out.println(map.values().iterator().next().values().stream().filter(g -> g == 86.0).count());
+
+        System.out.println("\n------ API DateTime ------\n");
+        LocalDateTime now = LocalDateTime.now();
+        System.out.println("Before : " + now);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("E/MM/yyyy");
+        String formatDateTime = now.format(formatter);
+        System.out.println("After : " + formatDateTime);
+
+        System.out.println("\n------  Duration ------\n");
+        System.out.println(Duration.ofDays(1).getSeconds() + " seconds");
+        System.out.println(Duration.of(3, ChronoUnit.HOURS).getSeconds() + " seconds");
+        
     }
 
 }
